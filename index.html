@@ -1,47 +1,1172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SolidTreasury - Future of Corporate Finance</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <title>SolidTreasury – Automated, Compliant Startup Treasury</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #050b14;
+      --bg-elevated: #0b1624;
+      --primary: #1aa28f;
+      --primary-soft: rgba(26, 162, 143, 0.12);
+      --accent: #e4c67b;
+      --text-main: #f7fafc;
+      --text-muted: #9aa4b5;
+      --border-subtle: #1e2936;
+      --danger: #f97373;
+    }
+    * {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #13253f 0, #050b14 55%);
+      color: var(--text-main);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .max-width {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(
+        to bottom,
+        rgba(5, 11, 20, 0.95),
+        rgba(5, 11, 20, 0.6),
+        transparent
+      );
+      border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0.25rem;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 0, #5eead4 0, #1aa28f 35%, #0b7660 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.5),
+                  0 12px 30px rgba(15, 118, 110, 0.45);
+    }
+    .brand-mark span {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #0b1120;
+    }
+    .brand-text-main {
+      font-size: 1.05rem;
+      font-weight: 650;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .brand-text-sub {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .nav-links a {
+      padding: 0.25rem 0;
+      border-bottom: 1px solid transparent;
+    }
+    .nav-links a:hover {
+      color: var(--text-main);
+      border-color: rgba(148, 163, 184, 0.3);
+    }
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .btn {
+      border-radius: 999px;
+      padding: 0.6rem 1.3rem;
+      font-size: 0.9rem;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.18s ease-out;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #22c8a4, #0f766e);
+      border-color: rgba(45, 212, 191, 0.7);
+      color: #022c22;
+      font-weight: 600;
+      box-shadow: 0 18px 40px rgba(15, 118, 110, 0.6);
+    }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 24px 55px rgba(15, 118, 110, 0.75);
+      filter: brightness(1.03);
+    }
+    .btn-ghost {
+      background: rgba(15, 23, 42, 0.7);
+      border-color: rgba(148, 163, 184, 0.35);
+      color: var(--text-muted);
+    }
+    .btn-ghost:hover {
+      border-color: rgba(148, 163, 184, 0.7);
+      color: var(--text-main);
+      background: rgba(15, 23, 42, 0.9);
+    }
+    main {
+      flex: 1;
+    }
+    .hero {
+      padding: 4rem 0 3rem;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 3rem;
+      align-items: center;
+    }
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.25rem 0.55rem 0.25rem 0.3rem;
+      border-radius: 999px;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      background: radial-gradient(circle at 0 0, rgba(56,189,248,0.25), transparent 55%);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+    }
+    .hero-pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
+    }
+    .hero-title {
+      font-size: clamp(2.4rem, 4vw, 3rem);
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      margin-bottom: 1rem;
+    }
+    .hero-title span.highlight {
+      background: linear-gradient(135deg, #5eead4, #22c55e, #e4c67b);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .hero-subtitle {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      max-width: 30rem;
+      margin-bottom: 1.6rem;
+    }
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      margin-top: 1.75rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .hero-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .hero-meta-badge {
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.7);
+    }
+    .hero-card {
+      background: radial-gradient(circle at 10% 0, rgba(59, 130, 246, 0.3), transparent 55%),
+                  linear-gradient(145deg, #020617, #020617, #020617, #020617);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      padding: 1.4rem 1.5rem;
+      box-shadow: 0 26px 70px rgba(15, 23, 42, 0.9);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at 10% 0, rgba(45, 212, 191, 0.1), transparent 55%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+    .hero-card-inner {
+      position: relative;
+      z-index: 1;
+    }
+    .hero-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .hero-card-title {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+    }
+    .hero-card-badge {
+      font-size: 0.7rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.5);
+      color: #bbf7d0;
+    }
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.1rem;
+    }
+    .metric {
+      padding: 0.7rem 0.75rem;
+      border-radius: 1rem;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(30, 64, 175, 0.5);
+    }
+    .metric-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+    .metric-value {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+    .metric-pill {
+      font-size: 0.7rem;
+      color: #4ade80;
+    }
+    .hero-allocation {
+      margin-top: 0.5rem;
+      padding: 0.8rem 0.9rem;
+      border-radius: 1rem;
+      border: 1px dashed rgba(148, 163, 184, 0.5);
+      background: radial-gradient(circle at 0 0, rgba(56,189,248,0.18), transparent 60%);
+    }
+    .hero-allocation-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.6rem;
+    }
+    .hero-allocation-title {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .hero-allocation-status {
+      font-size: 0.72rem;
+      color: #bbf7d0;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.5);
+    }
+    .allocation-bars {
+      display: flex;
+      height: 8px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(15, 23, 42, 0.9);
+      margin-bottom: 0.55rem;
+    }
+    .allocation-segment {
+      height: 100%;
+    }
+    .allocation-segment.cash {
+      width: 24%;
+      background: linear-gradient(90deg, #f97373, #facc15);
+    }
+    .allocation-segment.treasury {
+      width: 76%;
+      background: linear-gradient(90deg, #22c55e, #22c55e);
+    }
+    .allocation-legend {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+    }
+    .legend-dot.cash { background: #f97373; }
+    .legend-dot.treasury { background: #22c55e; }
+    .hero-card-footer {
+      margin-top: 0.9rem;
+      padding-top: 0.7rem;
+      border-top: 1px solid rgba(51, 65, 85, 0.85);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+    .hero-card-footer strong {
+      color: #bbf7d0;
+    }
+    .pill {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: rgba(15, 23, 42, 0.85);
+    }
+
+    .section {
+      padding: 2.75rem 0 2.4rem;
+      border-top: 1px solid rgba(15, 23, 42, 0.9);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.9);
+      background: radial-gradient(circle at top, rgba(15,23,42,0.55), transparent 55%);
+    }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 1rem;
+      margin-bottom: 1.8rem;
+    }
+    .section-kicker {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+    .section-title {
+      font-size: 1.4rem;
+      letter-spacing: -0.03em;
+    }
+    .section-description {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      max-width: 26rem;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.1fr);
+      gap: 2.25rem;
+      align-items: flex-start;
+    }
+    .problem-list {
+      list-style: none;
+      display: grid;
+      gap: 0.8rem;
+    }
+    .problem-item {
+      display: flex;
+      gap: 0.7rem;
+    }
+    .problem-bullet {
+      margin-top: 0.3rem;
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #f97373, #facc15);
+      box-shadow: 0 0 0 4px rgba(248, 250, 252, 0.02);
+    }
+    .problem-label {
+      font-size: 0.95rem;
+    }
+    .problem-copy {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .problem-highlight {
+      margin-top: 1.2rem;
+      padding: 0.9rem 1rem;
+      border-radius: 1rem;
+      border: 1px dashed rgba(248, 250, 252, 0.12);
+      background: radial-gradient(circle at 0 0, rgba(248, 250, 252, 0.02), transparent 55%);
+      font-size: 0.86rem;
+      color: var(--text-muted);
+    }
+    .problem-highlight strong {
+      color: var(--text-main);
+    }
+    .problem-metric-card {
+      padding: 1.2rem 1.2rem 1.1rem;
+      border-radius: 1.25rem;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), #020617);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      display: grid;
+      gap: 0.7rem;
+    }
+    .problem-metric-tag {
+      font-size: 0.72rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: var(--text-muted);
+      width: fit-content;
+    }
+    .problem-metric-main {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .problem-metric-main strong {
+      font-size: 1.5rem;
+    }
+    .problem-metric-caption {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.4rem;
+    }
+    .step-card {
+      padding: 1.1rem 1.05rem;
+      border-radius: 1.25rem;
+      border: 1px solid var(--border-subtle);
+      background: radial-gradient(circle at 0 0, rgba(34, 197, 94, 0.12), transparent 70%);
+      font-size: 0.88rem;
+      display: grid;
+      gap: 0.4rem;
+    }
+    .step-index {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-muted);
+    }
+    .step-title {
+      font-size: 0.98rem;
+      font-weight: 600;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.1rem;
+    }
+    .feature-card {
+      padding: 1rem 1rem 0.9rem;
+      border-radius: 1.2rem;
+      border: 1px solid var(--border-subtle);
+      background: rgba(15, 23, 42, 0.75);
+      font-size: 0.86rem;
+      display: grid;
+      gap: 0.45rem;
+    }
+    .feature-title {
+      font-size: 0.95rem;
+      font-weight: 550;
+    }
+    .feature-tag {
+      font-size: 0.7rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      width: fit-content;
+      color: var(--text-muted);
+    }
+
+    .compliance-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 2.1rem;
+      align-items: flex-start;
+    }
+    .callout {
+      padding: 0.85rem 1rem;
+      border-radius: 1rem;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.85);
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      margin-top: 0.75rem;
+    }
+    .compliance-list {
+      list-style: none;
+      display: grid;
+      gap: 0.55rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .compliance-list li::before {
+      content: "•";
+      margin-right: 0.5rem;
+      color: #4ade80;
+    }
+    .outcomes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.2rem;
+      font-size: 0.86rem;
+    }
+    .outcome-card {
+      padding: 1rem 1rem 0.9rem;
+      border-radius: 1.2rem;
+      border: 1px solid var(--border-subtle);
+      background: rgba(15, 23, 42, 0.9);
+    }
+    .outcome-title {
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .cta-section {
+      padding: 2.8rem 0 3.2rem;
+    }
+    .cta-card {
+      border-radius: 1.6rem;
+      padding: 2rem 2rem 1.9rem;
+      background: radial-gradient(circle at 0 0, rgba(34,197,94,0.25), transparent 60%),
+                  linear-gradient(120deg, #020617, #020617, #020617);
+      border: 1px solid rgba(74, 222, 128, 0.5);
+      box-shadow: 0 30px 80px rgba(15, 118, 110, 0.6);
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 1.8rem;
+      align-items: center;
+    }
+    .cta-title {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.03em;
+    }
+    .cta-text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      max-width: 26rem;
+    }
+    .cta-side {
+      display: grid;
+      gap: 0.7rem;
+      justify-items: flex-start;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    footer {
+      border-top: 1px solid rgba(15, 23, 42, 0.9);
+      padding: 1.8rem 0 1.6rem;
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-links a {
+      opacity: 0.8;
+    }
+    .footer-links a:hover {
+      opacity: 1;
+      color: var(--text-main);
+    }
+
+    @media (max-width: 960px) {
+      .hero-grid,
+      .problem-grid,
+      .compliance-grid,
+      .cta-card {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero {
+        padding-top: 3rem;
+      }
+    }
+    @media (max-width: 840px) {
+      .steps-grid,
+      .features-grid,
+      .outcomes-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    @media (max-width: 720px) {
+      .nav-links {
+        display: none;
+      }
+      .hero-meta {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .cta-card {
+        padding: 1.6rem 1.4rem;
+      }
+    }
+    @media (max-width: 640px) {
+      .steps-grid,
+      .features-grid,
+      .outcomes-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .section {
+        padding-inline: 0;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>SolidTreasury</h1>
-        <h2>Your Startup’s Treasury: Automated. Safe. Compliant. Effortless.</h2>
-        <p>Securely manage all your idle cash in one unified platform. </p>
-        
-        <hr style="margin: 30px 0;">
+  <div class="page">
+    <header>
+      <div class="max-width nav">
+        <a href="#" class="brand">
+          <div class="brand-mark"><span>ST</span></div>
+          <div>
+            <div class="brand-text-main">SOLIDTREASURY</div>
+            <div class="brand-text-sub">TREASURY • SAFETY • COMPLIANCE</div>
+          </div>
+        </a>
+        <div class="nav-links">
+          <a href="#how">Product</a>
+          <a href="#compliance">Compliance</a>
+          <a href="#outcomes">Why Treasury</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="nav-cta">
+          <button class="btn btn-ghost" type="button">
+            Log in
+          </button>
+          <button class="btn btn-primary" type="button">
+            Book a demo
+            <span>↗</span>
+          </button>
+        </div>
+      </div>
+    </header>
 
-        <h3>Get Early Access and Exclusive Updates</h3>
-        
-        <div id="mc_embed_signup">
-            <form action="#" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-                <div id="mc_embed_signup_scroll">
-                    <div class="mc-field-group">
-                        <label for="mce-EMAIL">Email Address</label>
-                        <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="your@email.com" required>
-                    </div>
-                    
-                    <div style="position: absolute; left: -5000px;" aria-hidden="true">
-                        <input type="text" name="b_YOUR_U_VALUE_HERE_YOUR_ID_HERE" tabindex="-1" value="">
-                    </div>
-                    
-                    <div class="clear">
-                        <input type="submit" value="Join the Waitlist" name="subscribe" id="mc-embedded-subscribe" class="button">
-                    </div>
-                </div>
-            </form>
-            
-            <div id="mce-responses" class="clear foot">
-                <div class="response" id="mce-error-response" style="display:none"></div>
-                <div class="response" id="mce-success-response" style="display:none"></div>
+    <main>
+      <section class="hero">
+        <div class="max-width hero-grid">
+          <div>
+            <div class="hero-pill">
+              <span class="hero-pill-dot"></span>
+              <span>Built for Indian startups • RIA-aligned workflows</span>
             </div>
-            
+            <h1 class="hero-title">
+              Your startup’s treasury,
+              <span class="highlight">automated, safe, compliant.</span>
+            </h1>
+            <p class="hero-subtitle">
+              SolidTreasury helps founders and finance teams automatically deploy idle cash
+              into safe, liquid, and compliant direct debt mutual funds — with complete
+              visibility and investor-aligned governance.
+            </p>
+            <div style="display:flex; flex-wrap:wrap; gap:0.8rem; align-items:center;">
+              <button class="btn btn-primary" type="button">
+                Book a 15-minute consultation
+              </button>
+              <button class="btn btn-ghost" type="button">
+                See how it works
+              </button>
+            </div>
+            <div class="hero-meta">
+              <span class="hero-meta-badge">
+                Designed for founders, CFOs & finance leaders
+              </span>
+              <span>
+                <span style="width:7px; height:7px; border-radius:999px; background:#22c55e;"></span>
+                Read-only bank connectivity
+              </span>
+              <span>
+                <span style="width:7px; height:7px; border-radius:999px; background:#38bdf8;"></span>
+                Audit-ready logs for boards & investors
+              </span>
+            </div>
+          </div>
+
+          <div>
+            <div class="hero-card">
+              <div class="hero-card-inner">
+                <div class="hero-card-header">
+                  <div>
+                    <div class="hero-card-title">Treasury Overview</div>
+                    <div style="font-size:0.7rem; color:var(--text-muted);">
+                      Last updated • Just now
+                    </div>
+                  </div>
+                  <div class="hero-card-badge">
+                    Compliance score: 100%
+                  </div>
+                </div>
+                <div class="hero-metrics">
+                  <div class="metric">
+                    <div class="metric-label">Idle cash before</div>
+                    <div class="metric-value">₹12.4 Cr</div>
+                    <div class="metric-pill">Across 4 current accounts</div>
+                  </div>
+                  <div class="metric">
+                    <div class="metric-label">Deployed to debt MFs</div>
+                    <div class="metric-value">₹11.6 Cr</div>
+                    <div class="metric-pill" style="color:#38bdf8;">Within mandate</div>
+                  </div>
+                  <div class="metric">
+                    <div class="metric-label">Blended pre-tax yield</div>
+                    <div class="metric-value">7.4%</div>
+                    <div class="metric-pill">vs 5.5% in FDs</div>
+                  </div>
+                </div>
+                <div class="hero-allocation">
+                  <div class="hero-allocation-header">
+                    <div class="hero-allocation-title">
+                      Allocation vs idle cash
+                    </div>
+                    <div class="hero-allocation-status">
+                      Automated & policy-aligned
+                    </div>
+                  </div>
+                  <div class="allocation-bars">
+                    <div class="allocation-segment cash"></div>
+                    <div class="allocation-segment treasury"></div>
+                  </div>
+                  <div class="allocation-legend">
+                    <span class="legend-item">
+                      <span class="legend-dot cash"></span>
+                      Idle cash: 24%
+                    </span>
+                    <span class="legend-item">
+                      <span class="legend-dot treasury"></span>
+                      Deployed via SolidTreasury: 76%
+                    </span>
+                  </div>
+                </div>
+                <div class="hero-card-footer">
+                  <span>
+                    Compliance engine:
+                    <strong>All investor rules satisfied</strong>
+                  </span>
+                  <span class="pill">
+                    Export board-ready report ↗
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </section>
+
+      <section class="section" id="problem">
+        <div class="max-width">
+          <div class="section-header">
+            <div>
+              <div class="section-kicker">The treasury problem</div>
+              <h2 class="section-title">
+                Idle cash is expensive. Treasury missteps are even more expensive.
+              </h2>
+            </div>
+            <p class="section-description">
+              Startups either leave money in low-yield FDs or experiment with unstructured
+              treasury decisions. Both options create risk — for founders, boards, and investors.
+            </p>
+          </div>
+
+          <div class="problem-grid">
+            <div>
+              <ul class="problem-list">
+                <li class="problem-item">
+                  <div class="problem-bullet"></div>
+                  <div>
+                    <div class="problem-label">Cash scattered across accounts</div>
+                    <div class="problem-copy">
+                      Multiple current accounts, varied bank relationships, no consolidated view
+                      of idle balances or runway impact.
+                    </div>
+                  </div>
+                </li>
+                <li class="problem-item">
+                  <div class="problem-bullet"></div>
+                  <div>
+                    <div class="problem-label">Manual, founder-driven decisions</div>
+                    <div class="problem-copy">
+                      Treasury lives inside the founder’s head and spreadsheets — hard to scale,
+                      hard to audit, and easy to postpone.
+                    </div>
+                  </div>
+                </li>
+                <li class="problem-item">
+                  <div class="problem-bullet"></div>
+                  <div>
+                    <div class="problem-label">Unclear investor guardrails</div>
+                    <div class="problem-copy">
+                      Side letters, fund mandates, risk preferences — often not translated into
+                      concrete, enforceable treasury rules.
+                    </div>
+                  </div>
+                </li>
+                <li class="problem-item">
+                  <div class="problem-bullet"></div>
+                  <div>
+                    <div class="problem-label">No audit trail for the board</div>
+                    <div class="problem-copy">
+                      When markets move or questions arise, it’s hard to show
+                      <em>why</em> you chose certain instruments, and what you monitored.
+                    </div>
+                  </div>
+                </li>
+              </ul>
+              <div class="problem-highlight">
+                <strong>SolidTreasury</strong> standardises this into a repeatable, compliant
+                workflow — so your treasury process is as robust as your product and finance stack.
+              </div>
+            </div>
+            <div class="problem-metric-card">
+              <div class="problem-metric-tag">
+                Why this matters
+              </div>
+              <div class="problem-metric-main">
+                <strong>+1.5–2.0%</strong>
+                <span class="problem-metric-caption">
+                  Potential uplift on significant portions of your idle cash — 
+                  without compromising safety or liquidity.
+                </span>
+              </div>
+              <div class="problem-metric-caption">
+                For a startup with ₹20–30 Cr in the bank, disciplined treasury can mean
+                <strong>₹30–60 lakhs+ in additional annual value</strong> — while staying fully
+                aligned with investor and board expectations.
+              </div>
+            </div>
+          </div>
         </div>
-    
-    <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/7b429fe37f4293f6aa445d333/60fa45054b9bee31815bcdfd0.js");</script>
+      </section>
+
+      <section class="section" id="how">
+        <div class="max-width">
+          <div class="section-header">
+            <div>
+              <div class="section-kicker">How it works</div>
+              <h2 class="section-title">
+                From scattered balances to a disciplined, automated treasury workflow.
+              </h2>
+            </div>
+            <p class="section-description">
+              SolidTreasury connects to your accounts, encodes investor rules, and automates
+              compliant allocations into direct debt mutual funds — with full transparency.
+            </p>
+          </div>
+
+          <div class="steps-grid">
+            <div class="step-card">
+              <div class="step-index">Step 1</div>
+              <div class="step-title">Connect your banking & cash view</div>
+              <p>
+                Secure, read-only connectivity aggregates balances across your current accounts
+                and entities — no money moves without explicit approvals.
+              </p>
+            </div>
+            <div class="step-card">
+              <div class="step-index">Step 2</div>
+              <div class="step-title">Encode investor & board guardrails</div>
+              <p>
+                Translate shareholder agreements, mandates, and risk appetite into concrete
+                rules: categories, tenors, credit quality, exposure limits, and approved AMCs.
+              </p>
+            </div>
+            <div class="step-card">
+              <div class="step-index">Step 3</div>
+              <div class="step-title">Automated, compliant allocation</div>
+              <p>
+                The engine recommends or executes deployments into vetted direct debt mutual
+                funds — optimising for safety, liquidity, and yield within your policy.
+              </p>
+            </div>
+            <div class="step-card">
+              <div class="step-index">Step 4</div>
+              <div class="step-title">Continuous monitoring & alerts</div>
+              <p>
+                Monitor NAV, fund ratings, concentration, and policy drift; get alerted if any
+                scheme or exposure breaches defined thresholds.
+              </p>
+            </div>
+            <div class="step-card">
+              <div class="step-index">Step 5</div>
+              <div class="step-title">Audit-ready reporting</div>
+              <p>
+                Export board packs, investor updates, and treasury summaries in a click — with
+                full logs of who did what, when, and under which policy.
+              </p>
+            </div>
+            <div class="step-card">
+              <div class="step-index">Step 6</div>
+              <div class="step-title">Scale across entities & SPVs</div>
+              <p>
+                Apply consistent treasury standards across subsidiaries, SPVs, and JV
+                structures — with clear separation and consolidated oversight.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="features">
+        <div class="max-width">
+          <div class="section-header">
+            <div>
+              <div class="section-kicker">Product capabilities</div>
+              <h2 class="section-title">
+                The treasury layer founders and CFOs have been waiting for.
+              </h2>
+            </div>
+            <p class="section-description">
+              Designed to be the invisible infrastructure behind your runway, governance, and
+              peace of mind.
+            </p>
+          </div>
+
+          <div class="features-grid">
+            <div class="feature-card">
+              <div class="feature-tag">Guardrails</div>
+              <div class="feature-title">Compliance engine</div>
+              <p>
+                Every recommendation is checked against investor, board, and internal rules — 
+                creating a single source of truth for what is “allowed” in your treasury.
+              </p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-tag">Deployment</div>
+              <div class="feature-title">Automated allocation</div>
+              <p>
+                Turn idle balances into policy-compliant deployments with a click — or fully
+                automated workflows with clear approvals and limits.
+              </p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-tag">Monitoring</div>
+              <div class="feature-title">Risk & exposure tracking</div>
+              <p>
+                Monitor fund ratings, categories, duration, and concentration; receive alerts
+                if anything deviates from your defined comfort zone.
+              </p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-tag">Liquidity</div>
+              <div class="feature-title">Redemption planner</div>
+              <p>
+                Know what can be redeemed, when, and with what impact — so vendor payments,
+                payroll, and runway buffers are never at risk.
+              </p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-tag">Governance</div>
+              <div class="feature-title">Audit logs & board packs</div>
+              <p>
+                Timestamped activity logs and exportable summaries make it easy to explain
+                treasury decisions to boards, investors, and auditors.
+              </p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-tag">Scale</div>
+              <div class="feature-title">Multi-entity treasury</div>
+              <p>
+                Manage treasury across ParentCo, SPVs, and subsidiaries, with clear
+                segregation and consolidated oversight for leadership.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="compliance">
+        <div class="max-width">
+          <div class="section-header">
+            <div>
+              <div class="section-kicker">Safety & compliance</div>
+              <h2 class="section-title">
+                Bank-grade security, RIA-aligned workflows, board-ready governance.
+              </h2>
+            </div>
+            <p class="section-description">
+              SolidTreasury is built from day one with the expectations of founders,
+              investors, and regulators in mind — not as an afterthought.
+            </p>
+          </div>
+
+          <div class="compliance-grid">
+            <div>
+              <p style="font-size:0.9rem; color:var(--text-muted);">
+                We work on the principle of minimum necessary access and maximum transparency.
+                Your capital stays with regulated institutions; SolidTreasury orchestrates
+                how, where, and when it’s allocated — under clear policy.
+              </p>
+              <div class="callout">
+                <strong>Read-only by default.</strong> No funds movement can occur without
+                explicit, recorded approvals from authorised signatories.
+              </div>
+            </div>
+            <div>
+              <ul class="compliance-list">
+                <li>End-to-end encryption for sensitive data in transit and at rest.</li>
+                <li>2FA and strict role-based access controls.</li>
+                <li>Detailed, immutable activity logs for every key action.</li>
+                <li>Clear separation between data, decision engine, and execution rails.</li>
+                <li>Alignment with SEBI / RIA-driven risk and suitability frameworks.</li>
+                <li>Board- and investor-friendly reporting format.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="outcomes">
+        <div class="max-width">
+          <div class="section-header">
+            <div>
+              <div class="section-kicker">Why this matters</div>
+              <h2 class="section-title">
+                Treasury that quietly compounds value — without adding noise.
+              </h2>
+            </div>
+            <p class="section-description">
+              You didn’t start a company to manage treasury spreadsheets. SolidTreasury turns
+              that necessary complexity into a calm, reliable workflow.
+            </p>
+          </div>
+
+          <div class="outcomes-grid">
+            <div class="outcome-card">
+              <div class="outcome-title">More yield, same sleep</div>
+              <p>
+                Shift from static FDs to a curated, compliant basket of direct debt mutual
+                funds — improving outcomes without sacrificing liquidity or safety.
+              </p>
+            </div>
+            <div class="outcome-card">
+              <div class="outcome-title">Founder time unlocked</div>
+              <p>
+                Take treasury out of late-night founder decisions. Put it into a system
+                with clear guardrails, visibility, and approvals.
+              </p>
+            </div>
+            <div class="outcome-card">
+              <div class="outcome-title">Happier boards & investors</div>
+              <p>
+                Move from “trust me” to “here’s the policy, process, and evidence” — making
+                treasury a non-issue in reviews and diligence.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta-section" id="contact">
+        <div class="max-width">
+          <div class="cta-card">
+            <div>
+              <h2 class="cta-title">
+                Let’s make your treasury as strong as your product.
+              </h2>
+              <p class="cta-text">
+                Tell us how you manage treasury today, and we’ll map out how SolidTreasury
+                can standardise, automate, and de-risk it — in a way your board and investors
+                will appreciate.
+              </p>
+              <div style="margin-top:1.4rem; display:flex; flex-wrap:wrap; gap:0.85rem; align-items:center;">
+                <button class="btn btn-primary" type="button">
+                  Get Early Access and Exclusive Updates
+                </button>
+<script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/7b429fe37f4293f6aa445d333/60fa45054b9bee31815bcdfd0.js");</script>
+                
+              </div>
+            </div>
+            <div class="cta-side">
+              <div>
+                <strong>What we’ll cover in 15 minutes:</strong>
+              </div>
+              <ul style="list-style:none; padding-left:0; display:grid; gap:0.4rem;">
+                <li>• Your current cash, runway, and treasury setup.</li>
+                <li>• Investor / board expectations and constraints.</li>
+                <li>• How SolidTreasury would plug into your systems.</li>
+                <li>• Next steps for a low-friction pilot.</li>
+              </ul>
+              <div style="margin-top:0.4rem;">
+                Or email us at
+                <a href="mailto:hello@solidtreasury.com" style="color:#e5e7eb; text-decoration:underline;">
+                  hello@solidtreasury.com
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="max-width footer-row">
+        <div>
+          © <span id="year"></span> SolidTreasury. All rights reserved.
+        </div>
+        <div class="footer-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Security</a>
+          <a href="mailto:support@solidtreasury.com">support@solidtreasury.com</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
